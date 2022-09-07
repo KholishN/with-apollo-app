@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.check-box:checked ~ .check-1{
+    @apply opacity-100 text-white
+}
+
+.check-box:checked{
+    @apply  bg-green-500
+}
