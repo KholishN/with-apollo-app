@@ -63,7 +63,7 @@ export default function Detail() {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Sidebars
         setShowClass={handleShowStudent}
         classes={classes}

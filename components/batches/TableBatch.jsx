@@ -26,8 +26,8 @@ export default function TableBatch({
 
   if (loading) return <p>Loading...</p>;
   return (
-    <div className="bg-gray-200 min-h-screen flex flex-col pt-28 items-center">
-      <div className="w-4/5">
+    <div className="bg-gray-200 h-screen flex flex-col pt-28 items-center">
+      <div className="">
         <div className="flex flex-row justify-between pr-7">
           <h1 className="text-2xl font-semibold mb-5">Batches</h1>
           <button
@@ -37,7 +37,7 @@ export default function TableBatch({
             Create Batch
           </button>
         </div>
-        <div className=" overflow-auto rounded-lg shadow hidden md:block">
+        <div className=" overflow-auto rounded-lg shadow  md:block">
           <table className="w-full">
             <thead className="bg-gray-50 border-b-2 border-gray-200">
               <tr>
@@ -52,6 +52,9 @@ export default function TableBatch({
                 </th>
                 <th className="w-48 p-3 text-xl  font-bold tracking-wide text-left">
                   End
+                </th>
+                <th className="w-48 p-3 text-xl  font-bold tracking-wide text-left">
+                  Status
                 </th>
                 <th className="w-48 p-3 text-xl  font-bold tracking-wide text-left">
                   Status

@@ -28,7 +28,6 @@ export default function SoftSkill({ userId }) {
     },
   });
 
-
   // update
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -56,7 +55,7 @@ export default function SoftSkill({ userId }) {
                 </button>
               </div>
             </div>
-            <div className=" overflow-auto rounded-lg shadow hidden md:block">
+            <div className=" overflow-auto rounded-lg shadow  md:block">
               <table className="w-full">
                 <thead className="bg-gray-50 border-b-2 border-gray-200">
                   <tr>
