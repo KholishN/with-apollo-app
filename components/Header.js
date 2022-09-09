@@ -18,7 +18,7 @@ export default function Header() {
 
   let [expand, setExpand] = useState(false);
   return (
-    <div className="bg-neutral-500 shadow-md w-full fixed top-0 left-0">
+    <div className="bg-neutral-500 shadow-md w-full z-10 fixed top-0 left-0">
       <div className="md:flex items-center justify-between bg-white md:pr-24 py-2 md:px-10 px-7">
         <div className="cursor-pointer flex item-center md:pt-0 pt-3">
           <span>

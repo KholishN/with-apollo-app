@@ -6,6 +6,7 @@
     @apply opacity-100 text-white
 }
 
-.check-box:checked{
-    @apply  bg-green-500
+
+.roudedd{
+   @apply rounded-full
 }
