@@ -62,8 +62,19 @@ export default function DeleteProductivity({
               </h1>
             </div>
             <div>Are You Sure Want To Delete This Productivity ?</div>
-            <button onClick={handleDelete}>Yes</button>
-            <button type="submit" onClick={() => setShow(!show)}>
+            <div className=" px-5">
+              <button
+                className="bg-[#fe4e30] text-xl text-white px-8 py-2 rounded-md "
+                onClick={handleDelete}
+              >
+                Yes
+              </button>
+            </div>
+            <button
+              className="bg-gray-200 text-xl px-8 py-2 rounded-md "
+              type="submit"
+              onClick={() => setShow(!show)}
+            >
               No
             </button>
           </div>

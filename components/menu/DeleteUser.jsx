@@ -12,10 +12,9 @@ const Delete_SOFTSKILL = gql`
 `;
 
 export default function DeleteUser({
-  
   showDeleteUser,
   setShowDeleteUser,
-  userId
+  userId,
 }) {
   if (!showDeleteUser) return null;
   const [deleteSoftSkill] = useMutation(Delete_SOFTSKILL);
@@ -61,10 +60,18 @@ export default function DeleteUser({
               </h1>
             </div>
             <div>Are You Sure Want To Delete This Productivity ?</div>
-            <button onClick={handleDelete}>Yes</button>
+            <div className=" px-5">
+              <button
+                className="bg-[#fe4e30] text-xl text-white px-8 py-2 rounded-md "
+                onClick={handleDelete}
+              >
+                Yes
+              </button>
+            </div>
             <button
+              className="bg-gray-200 text-xl px-8 py-2 rounded-md "
               type="submit"
-              onClick={() => setShowDeleteUser(!showDeleteUser)}
+              onClick={() => setShow(!show)}
             >
               No
             </button>

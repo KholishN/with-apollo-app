@@ -60,10 +60,21 @@ export default function DeleteAssignment({
               <h1 className="text-3xl font-semibold mb-7">Delete Assignment</h1>
             </div>
             <div>Are You Sure Want To Delete This Assignment ?</div>
-            <button onClick={handleDelete}>Yes</button>
-            <button type="submit" onClick={() => setShow(!show)}>
-              No
-            </button>
+            <div className=" px-5">
+                <button
+                  className="bg-[#fe4e30] text-xl text-white px-8 py-2 rounded-md "
+                  onClick={handleDelete}
+                >
+                  Yes
+                </button>
+              </div>
+              <button
+                className="bg-gray-200 text-xl px-8 py-2 rounded-md "
+                type="submit"
+                onClick={() => setShow(!show)}
+              >
+                No
+              </button>
           </div>
         </div>
       </div>
