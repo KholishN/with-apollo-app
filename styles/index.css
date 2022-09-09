@@ -10,3 +10,11 @@
 .roudedd{
    @apply rounded-full
 }
+
+body{
+    @apply h-screen p-0 m-0
+}
+
+#_next{
+    height: 100vh;
+}

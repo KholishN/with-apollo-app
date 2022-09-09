@@ -24,6 +24,8 @@ export default function Sidebars({
   data,
   datas,
   setType,
+  handleShowDeleteUser,
+  setUserIdDelete
 }) {
   // menu
   const [open, setOpen] = useState(true);
@@ -75,7 +77,7 @@ export default function Sidebars({
         <div className="flex">
           <div
             className={`${
-              open ? "w-72 pt-20" : "w-20 pt-36"
+              open ? "w-80 pt-20" : "w-20 pt-36"
             } duration-300  min-h-screen  p-5  bg-gray-100 relative`}
           >
             <FiChevronLeft
@@ -157,6 +159,8 @@ export default function Sidebars({
               students={datas}
               setShowClass={setShowClass}
               classes={classes}
+              handleShowDeleteUser={handleShowDeleteUser}
+              setUserIdDelete={setUserIdDelete}
             />
           )}
         </div>

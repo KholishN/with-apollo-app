@@ -1,6 +1,7 @@
 import Header from "../../components/Header";
 import Sidebars from "../../components/Sidebars";
 import AddStudents from "../../components/AddStudents";
+import DeleteUser from "../../components/menu/DeleteUser";
 import { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
@@ -29,6 +30,8 @@ const classes = gql`
 export default function Detail() {
   const [showClass, setShowClass] = useState(false);
   const handleShowStudent = () => setShowClass(true);
+  const [userId, setUserId] = useState("");
+  const [showDeleteUser, setShowDeleteUser] = useState(false);
 
   const router = useRouter();
   const id = router.query.id;
@@ -63,13 +66,15 @@ export default function Detail() {
 
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <Sidebars
         setShowClass={handleShowStudent}
         classes={classes}
         data={data}
         datas={datas}
         setType={setType}
+        handleShowDeleteUser={setShowDeleteUser}
+        setUserIdDelete={setUserId}
       />
       <AddStudents
         showClass={showClass}
@@ -78,6 +83,11 @@ export default function Detail() {
         ClassID={ClassID}
         type={type}
         datas={datas}
+      />
+      <DeleteUser
+        showDeleteUser={showDeleteUser}
+        setShowDeleteUser={setShowDeleteUser}
+        userId={userId}
       />
     </>
   );

@@ -1,9 +1,15 @@
 import { GoCheck } from "react-icons/go";
 import { HiOutlineInbox } from "react-icons/hi";
 
-export default function TableUsers({ students, setUserId, setShowClass }) {
+export default function TableUsers({
+  students,
+  setUserId,
+  setShowClass,
+  handleShowDeleteUser,
+  setUserIdDelete,
+}) {
   return (
-    <div className=" min-h-screen flex flex-col pt-28 items-center w-full">
+    <div className=" bg-gray-200 min-h-screen flex flex-col p-28  w-full">
       <div className="w-4/5">
         <div className="flex flex-row justify-between pr-7">
           <h1 className="text-2xl font-semibold mb-5">Students</h1>
@@ -15,7 +21,7 @@ export default function TableUsers({ students, setUserId, setShowClass }) {
             Add Student
           </button>
         </div>
-        <div className=" overflow-auto rounded-lg shadow  md:block">
+        <div className=" overflow-auto rounded-lg shadow hidden  md:block">
           <table className="w-full">
             <thead className="bg-gray-50 border-b-2 border-gray-200">
               <tr>
@@ -28,6 +34,9 @@ export default function TableUsers({ students, setUserId, setShowClass }) {
                 <th className="w-48 p-3 text-xl  font-bold tracking-wide text-left">
                   Email
                 </th>
+                <th className="w-20 p-3 text-xl font-bold tracking-wide text-left">
+                  Action
+                </th>
               </tr>
             </thead>
             {students?.classes[0]?.students.length !== 0 ? (
@@ -36,16 +45,34 @@ export default function TableUsers({ students, setUserId, setShowClass }) {
                   <tr
                     key={index}
                     className="bg-white hover:bg-gray-100 cursor-pointer"
-                    onClick={() => setUserId(item.id)}
                   >
-                    <td className="p-3 text-lg text-gray-700 font-bold">
+                    <td
+                      className="p-3 text-lg text-gray-700 font-bold"
+                      onClick={() => setUserId(item.id)}
+                    >
                       {index + 1}
                     </td>
-                    <td className="p-3 text-lg text-gray-700 whitespace-nowrap">
+                    <td
+                      className="p-3 text-lg text-gray-700 whitespace-nowrap"
+                      onClick={() => setUserId(item.id)}
+                    >
                       {item.firstName}
                     </td>
-                    <td className="p-3 w-23 text-lg text-gray-700 whitespace-nowrap">
+                    <td
+                      className="p-3 w-23 text-lg text-gray-700 whitespace-nowrap"
+                      onClick={() => setUserId(item.id)}
+                    >
                       {item.email}
+                    </td>
+                    <td className="  px-20  text-lg text-gray-700 whitespace-nowrap ">
+                      <button
+                        className=" bg-[#fe4e30] hover:bg-[#e73e2093] px-7 py-1 text-white font-bold  text-[1.20rem] rounded-md"
+                        onClick={() => {
+                          setUserIdDelete(item.id), handleShowDeleteUser(true);
+                        }}
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}

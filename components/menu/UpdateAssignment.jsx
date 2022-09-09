@@ -96,7 +96,6 @@ export default function UpdateAssignment({
     studentId: userId,
     subjectId: "",
   });
-  console.log(typeof form.point);
 
   const handleChange = (e) => {
     setForm({
@@ -131,7 +130,7 @@ export default function UpdateAssignment({
         input: {
           point: parseInt(form.point),
           studentId: userId,
-          subjectId: form.subjectId
+          subjectId: form.subjectId,
         },
         id: data?.assignments[0]?.id,
       },
@@ -170,8 +169,8 @@ export default function UpdateAssignment({
                 <div className="text-3xl">{resultSubject.subject}</div>
               </div>
             </div>
-            <form className="flex flex-col items-center justify-between ">
-              <div className="flex flex-row justify-between w-4/5">
+            <form className="flex flex-col w-4/5 justify-around my-5 ">
+              <div className="flex  justify-between mx-2 ">
                 {categories?.subCategories?.map((item, index) => (
                   <div
                     className="flex flex-row
@@ -189,7 +188,10 @@ export default function UpdateAssignment({
                   </div>
                 ))}
               </div>
-              <label htmlFor="name" className="mb-3 text-2xl font-bold mt-2">
+              <label
+                htmlFor="name"
+                className="mb-5 text-2xl text-center font-bold mt-2"
+              >
                 Point
               </label>
               <div className="flex flex-row gap-x-4  justify-center mb-5">

@@ -12,6 +12,9 @@ const assignments = gql`
       subject {
         id
         name
+        subCategory {
+          name
+        }
       }
       student {
         id
@@ -32,7 +35,6 @@ export default function Assigment({ userId }) {
     },
   });
 
-  console.log(data);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -41,17 +43,19 @@ export default function Assigment({ userId }) {
   return (
     <>
       {data?.assignments?.length !== 0 ? (
-        <div className=" min-h-screen flex flex-col pt-28 items-center w-full">
+        <div className=" bg-gray-200 min-h-screen flex flex-col p-28  w-full">
           <div className="w-4/5">
             <div className="flex flex-row justify-between pr-7">
               <h1 className="text-2xl font-semibold mb-5">Assigment</h1>
-              <div>
-                <button
-                  className="mb-5 mr-3 p-2 px-5 rounded-lg text-white font-semibold text-base bg-[#fe4e30]"
-                  onClick={() => setShow(true)}
-                >
-                  Add Assignment
-                </button>
+              <div className="flex flex-row">
+                <div className="px-3">
+                  <button
+                    className="mb-5 mr-3 p-2 px-5 rounded-lg text-white font-semibold text-base bg-[#fe4e30]"
+                    onClick={() => setShow(true)}
+                  >
+                    Add Assignment
+                  </button>
+                </div>
                 <button
                   className="mb-5 p-2 px-5 rounded-lg text-white font-semibold text-base bg-[#fe4e30]"
                   onClick={() => setShowDelete(true)}
@@ -70,7 +74,7 @@ export default function Assigment({ userId }) {
                     <th className="w-20 p-3 text-xl  font-bold tracking-wide text-left">
                       Point
                     </th>
-                    <th className="w-20 p-3 text-xl  font-bold tracking-wide text-left">
+                    <th className="w-80 p-3 text-xl  font-bold tracking-wide text-left">
                       Description
                     </th>
                   </tr>
@@ -83,16 +87,13 @@ export default function Assigment({ userId }) {
                         className="bg-white hover:bg-gray-100 cursor-pointer"
                       >
                         <td className="p-3 text-lg text-gray-700 font-bold ">
-                          {data.absent}
+                          {data?.subject?.subCategory?.name}
                         </td>
                         <td className="p-3 text-lg text-gray-700 font-bold ">
-                          {data.permission}
+                          {data?.point}
                         </td>
                         <td className="p-3 text-lg text-gray-700 font-bold ">
-                          {data.sick}
-                        </td>
-                        <td className="p-3 text-lg text-gray-700 font-bold ">
-                          {data.present}
+                          {data?.subject?.name}
                         </td>
                       </tr>
                     ))}

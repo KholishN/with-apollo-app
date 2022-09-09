@@ -31,7 +31,7 @@ export default function Dashboard() {
 
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <TableBatch
         setShow={setShow}
         setShowUpdate={setShowUpdate}

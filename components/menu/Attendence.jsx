@@ -40,17 +40,19 @@ export default function Attendence({ userId }) {
   return (
     <>
       {data?.attendances?.length !== 0 ? (
-        <div className=" min-h-screen flex flex-col pt-28 items-center w-full">
+        <div className=" bg-gray-200 min-h-screen flex flex-col p-28  w-full">
           <div className="w-4/5">
             <div className="flex flex-row justify-between pr-7">
               <h1 className="text-2xl font-semibold mb-5">Attendence</h1>
-              <div>
-                <button
-                  className="mb-5 p-2 px-5 mr-3 rounded-lg text-white font-semibold text-base bg-[#fe4e30]"
-                  onClick={() => setShow(true)}
-                >
-                  Add Attendance
-                </button>
+              <div className="flex flex-row">
+                <div className="px-3">
+                  <button
+                    className="mb-5 p-2 px-5 mx-5 rounded-lg text-white font-semibold text-base bg-[#fe4e30]"
+                    onClick={() => setShow(true)}
+                  >
+                    Add Attendance
+                  </button>
+                </div>
                 <button
                   className="mb-5 p-2 px-5 rounded-lg text-white font-semibold text-base bg-[#fe4e30]"
                   onClick={() => setShowDelete(true)}
@@ -59,7 +61,7 @@ export default function Attendence({ userId }) {
                 </button>
               </div>
             </div>
-            <div className=" overflow-auto rounded-lg shadow  md:block">
+            <div className=" overflow-auto rounded-lg shadow hidden  md:block">
               <table className="w-full">
                 <thead className="bg-gray-50 border-b-2 border-gray-200">
                   <tr>
