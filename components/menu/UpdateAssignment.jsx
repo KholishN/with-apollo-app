@@ -59,7 +59,7 @@ export default function UpdateAssignment({
   show,
   handleClose,
   setShow,
-  asignment,
+  assignments,
   userId,
   data,
 }) {
@@ -136,7 +136,7 @@ export default function UpdateAssignment({
       },
       refetchQueries: [
         {
-          query: asignment,
+          query: assignments,
           variables: {
             where: {
               studentId: userId,

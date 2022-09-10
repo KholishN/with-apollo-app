@@ -14,11 +14,12 @@ const Delete_Assignment = gql`
 export default function DeleteAssignment({
   show,
   setShow,
-  assignment,
+  assignments,
   data,
   userId,
 }) {
   if (!show) return null;
+  console.log(typeof userId);
   const [deleteAssignment] = useMutation(Delete_Assignment);
 
   const [confirmDelete, setConfirmDelete] = useState(null);
@@ -32,7 +33,7 @@ export default function DeleteAssignment({
       variables: { id: data?.assignments[0]?.id },
       refetchQueries: [
         {
-          query: assignment,
+          query: assignments,
           variables: {
             where: {
               studentId: userId,
@@ -60,7 +61,8 @@ export default function DeleteAssignment({
               <h1 className="text-3xl font-semibold mb-7">Delete Assignment</h1>
             </div>
             <div>Are You Sure Want To Delete This Assignment ?</div>
-            <div className=" px-5">
+            <div className="flex flex-row mt-2">
+              <div className=" px-5">
                 <button
                   className="bg-[#fe4e30] text-xl text-white px-8 py-2 rounded-md "
                   onClick={handleDelete}
@@ -68,13 +70,16 @@ export default function DeleteAssignment({
                   Yes
                 </button>
               </div>
-              <button
-                className="bg-gray-200 text-xl px-8 py-2 rounded-md "
-                type="submit"
-                onClick={() => setShow(!show)}
-              >
-                No
-              </button>
+              <div>
+                <button
+                  className="bg-gray-200 text-xl px-8 py-2 rounded-md "
+                  type="submit"
+                  onClick={() => setShow(!show)}
+                >
+                  No
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
