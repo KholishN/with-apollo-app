@@ -67,8 +67,7 @@ export default function UpdateAttendence({
           },
         },
       ],
-    }).then((response) => console.log(response));
-
+    })
     setShow(false);
   };
 

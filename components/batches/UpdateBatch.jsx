@@ -73,7 +73,7 @@ export default function UpdateBatch({
         },
         id: idBatch,
       },
-    }).then((response) => console.log(response));
+    })
 
     setShowUpdate(false);
   };

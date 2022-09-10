@@ -38,7 +38,7 @@ export default function DeleteUser({
           },
         },
       ],
-    }).then((response) => console.log(response));
+    })
   };
 
   useEffect(() => {

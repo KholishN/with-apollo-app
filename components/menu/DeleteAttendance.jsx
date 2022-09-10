@@ -40,7 +40,7 @@ export default function DeleteAttendance({
           },
         },
       ],
-    }).then((response) => console.log(response));
+    })
   };
 
   useEffect(() => {

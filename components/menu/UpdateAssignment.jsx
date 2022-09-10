@@ -144,7 +144,7 @@ export default function UpdateAssignment({
           },
         },
       ],
-    }).then((response) => console.log(response));
+    })
 
     setShow(false);
   };

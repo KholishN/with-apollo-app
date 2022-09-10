@@ -56,8 +56,7 @@ export default function UpdateSoftSkill({
           },
         },
       ],
-    }).then((response) => console.log(response));
-
+    });
     setShow(false);
   };
 

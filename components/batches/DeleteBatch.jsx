@@ -29,7 +29,7 @@ export default function DeleteBatch({
     deleteBatch({
       variables: { id: idBatch },
       refetchQueries: [{ query: batches }],
-    }).then((response) => console.log(response));
+    })
   };
 
   useEffect(() => {

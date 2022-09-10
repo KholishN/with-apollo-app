@@ -19,7 +19,7 @@ export default function DeleteAssignment({
   userId,
 }) {
   if (!show) return null;
-  console.log(typeof userId);
+ 
   const [deleteAssignment] = useMutation(Delete_Assignment);
 
   const [confirmDelete, setConfirmDelete] = useState(null);
@@ -41,7 +41,7 @@ export default function DeleteAssignment({
           },
         },
       ],
-    }).then((response) => console.log(response));
+    })
   };
 
   useEffect(() => {

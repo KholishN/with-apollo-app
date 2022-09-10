@@ -40,7 +40,7 @@ export default function CreateAttedance({ attendence, userId }) {
           },
         },
       ],
-    }).then((response) => console.log(response));
+    })
   };
 
   return (

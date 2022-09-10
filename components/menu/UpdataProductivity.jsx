@@ -56,7 +56,7 @@ export default function UpdateProductivity({
           },
         },
       ],
-    }).then((response) => console.log(response));
+    })
 
     setShow(false);
   };

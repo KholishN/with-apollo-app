@@ -34,7 +34,7 @@ export default function CreateProductivity({ productivity, userId }) {
           },
         },
       ],
-    }).then((response) => console.log(response));
+    })
   };
   return (
     <div className="bg-gray-200 w-full h-screen flex justify-center items-center">

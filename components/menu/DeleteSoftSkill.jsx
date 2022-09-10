@@ -40,7 +40,7 @@ export default function DeleteSoftSkill({
           },
         },
       ],
-    }).then((response) => console.log(response));
+    })
   };
 
   useEffect(() => {

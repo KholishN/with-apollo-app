@@ -41,7 +41,7 @@ export default function CreateBatch({ show, handleClose, setShow, batches }) {
         endedAt: form.endedAt,
       },
       refetchQueries: [{ query: batches }],
-    }).then((response) => console.log(response));
+    })
 
     setShow(false);
   };

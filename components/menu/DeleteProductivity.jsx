@@ -40,7 +40,7 @@ export default function DeleteProductivity({
           },
         },
       ],
-    }).then((response) => console.log(response));
+    })
   };
 
   useEffect(() => {
