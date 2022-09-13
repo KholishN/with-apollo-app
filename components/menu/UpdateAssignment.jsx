@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CgClose } from "react-icons/cg";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { gql, useMutation, useQuery, useLazyQuery } from "@apollo/client";
@@ -23,34 +23,24 @@ const UPDATE_ASSIGNMENT = gql`
   }
 `;
 
-const GET_SUBJECT = gql`
-  query GetSubject($where: SubjectFilter) {
-    subjects(where: $where) {
-      name
-      subCategory {
-        name
-        category
-        classType
-        percentage
+const GET_ASSIGNMENT = gql`
+  query getAssigment($id: String!) {
+    assignment(id: $id) {
+      subject {
         id
-      }
-      percentage
-      id
-    }
-  }
-`;
-
-const GET_CATEGORIES = gql`
-  query GetCategories($where: SubCategoryFilter) {
-    subCategories(where: $where) {
-      id
-      name
-      category
-      subjects {
         name
         percentage
-        id
+        subCategory {
+          name
+          category
+        }
       }
+      student {
+        id
+        firstName
+      }
+      point
+      id
     }
   }
 `;
@@ -62,64 +52,46 @@ export default function UpdateAssignment({
   assignments,
   userId,
   data,
+  idSubject,
+  nameCategory,
+  assignmentId,
 }) {
   if (!show) return null;
 
-  const { data: subject } = useQuery(GET_SUBJECT, {
-    where: {
-      subCategory: {
-        classType: "STAGEONE",
-      },
-    },
-  });
+  console.log(assignmentId);
 
-  const { data: categories } = useQuery(GET_CATEGORIES, {
+  const { data: assigment } = useQuery(GET_ASSIGNMENT, {
     variables: {
-      where: {
-        classType: "STAGEONE",
-      },
+      id: assignmentId,
     },
-  });
-
-  const [getCategory, { data: newcategories }] = useLazyQuery(GET_CATEGORIES);
-
-  const [result, setResult] = useState({
-    category: null,
-  });
-  const [resultSubject, setSubject] = useState({
-    subject: null,
   });
 
   const [updateAssignment] = useMutation(UPDATE_ASSIGNMENT);
   const [form, setForm] = useState({
-    point: 0,
+    point: assigment?.assignment?.point,
     studentId: userId,
-    subjectId: "",
+    subjectId: idSubject,
+    assignmentId: assignmentId,
   });
+
+  useEffect(() => {
+    if (assigment) {
+      setForm({
+        ...form,
+        point: assigment?.assignment?.point,
+        studentId: userId,
+        subjectId: idSubject,
+        assignmentId: assignmentId,
+      });
+    }
+  }, [assigment]);
+
+  console.log(assigment);
 
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
-    });
-
-    setResult({
-      ...result,
-      [e.target.name]: e.target.id,
-    });
-  };
-
-  const handleSubject = (e) => {
-    e.preventDefault();
-
-    setResult({ category: e.target.name });
-
-    getCategory({
-      variables: {
-        where: {
-          name: e.target.name,
-        },
-      },
     });
   };
 
@@ -132,7 +104,7 @@ export default function UpdateAssignment({
           studentId: userId,
           subjectId: form.subjectId,
         },
-        id: data?.assignments[0]?.id,
+        id: form.assignmentId,
       },
       refetchQueries: [
         {
@@ -140,11 +112,16 @@ export default function UpdateAssignment({
           variables: {
             where: {
               studentId: userId,
+              subject: {
+                subCategory: {
+                  name: nameCategory,
+                },
+              },
             },
           },
         },
       ],
-    })
+    });
 
     setShow(false);
   };
@@ -164,30 +141,15 @@ export default function UpdateAssignment({
             <div className="bg-gray-200 w-[90%] h-[200px] mb-3 text-center p-5">
               <div className="">
                 <div className="text-4xl font-bold mb-6 bg-gray-500 pb-3 w-4">
-                  {result.category}
+                  {assigment?.assignment?.subject?.subCategory?.name}
                 </div>
-                <div className="text-3xl">{resultSubject.subject}</div>
+                <div className="text-3xl">
+                  {assigment?.assignment?.subject?.name}
+                </div>
               </div>
             </div>
             <form className="flex flex-col w-4/5 justify-around my-5 ">
-              <div className="flex  justify-between mx-2 ">
-                {categories?.subCategories?.map((item, index) => (
-                  <div
-                    className="flex flex-row
-                  bg-[#fe4e30] px-4 py-2 rounded-lg text-white font-bold active:bg-[#c8351b]
-                  justify-between"
-                  >
-                    <button
-                      key={index}
-                      onClick={handleSubject}
-                      className="text-2xl"
-                      name={item.name}
-                    >
-                      {item.name}
-                    </button>
-                  </div>
-                ))}
-              </div>
+              <div className="flex  justify-between mx-2 "></div>
               <label
                 htmlFor="name"
                 className="mb-5 text-2xl text-center font-bold mt-2"
@@ -201,7 +163,7 @@ export default function UpdateAssignment({
                     onClick={(e) => {
                       e.preventDefault(),
                         setForm({
-                          point: form.point - 1,
+                          point: form?.point - 1,
                         });
                     }}
                   >
@@ -214,7 +176,7 @@ export default function UpdateAssignment({
                   className=" text-center h-1 rounded-lg px-3 bg-gray-200 shadow focus:bg-gray-300"
                   name="point"
                   onChange={handleChange}
-                  value={form.point}
+                  value={form?.point}
                 />
                 <div className="w-32 h-1 flex items-center">
                   <button
@@ -222,7 +184,7 @@ export default function UpdateAssignment({
                     onClick={(e) => {
                       e.preventDefault(),
                         setForm({
-                          point: form.point + 1,
+                          point: form?.point + 1,
                         });
                     }}
                   >
@@ -238,48 +200,6 @@ export default function UpdateAssignment({
                 Submit
               </button>
             </form>
-          </div>
-        </div>
-        <div className=" w-97 bg-white rounded-lg shadow  ">
-          <div className="p-8">
-            <div className="flex flex-row justify-between">
-              <h1 className="text-3xl font-semibold mb-7">Add Assignment</h1>
-              <CgClose
-                className="text-2xl font-extrabold cursor-pointer"
-                onClick={handleClose}
-              />
-            </div>
-            <div>
-              {newcategories?.subCategories && (
-                <>
-                  {newcategories?.subCategories.map((item, index) => (
-                    <div
-                      key={index}
-                      className="bg-gray-100 rounded-lg overflow-auto"
-                    >
-                      {item.subjects.map((data, idx) => (
-                        <div
-                          key={idx}
-                          className="hover:bg-gray-200 cursor-pointer overflow-auto rounded-lg "
-                          name="subjectId"
-                          value="test"
-                          id={data?.id}
-                          onClick={() => (
-                            setForm({ ...form, subjectId: data.id }),
-                            setSubject({ ...subject, subject: data.name })
-                          )}
-                        >
-                          <div className="w-full  mb-3 text-2xl p-2 rounded-lg overflow-auto">
-                            <div>{data.name}</div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                  <div></div>
-                </>
-              )}
-            </div>
           </div>
         </div>
       </div>

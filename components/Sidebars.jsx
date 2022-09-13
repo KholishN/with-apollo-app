@@ -17,6 +17,30 @@ import SoftSkill from "./menu/SoftSkill";
 import Select from "./menu/Select";
 
 import CreateClass from "./CreateClass";
+import CreateAssigment from "./menu/CreateAssigment";
+
+const assignments = gql`
+  query getAssigment($where: AssignmentFilter) {
+    assignments(where: $where) {
+      subject {
+        id
+        name
+        percentage
+        subCategory {
+          name
+          category
+          percentage
+        }
+      }
+      student {
+        id
+        firstName
+      }
+      point
+      id
+    }
+  }
+`;
 
 export default function Sidebars({
   setShowClass,
@@ -25,7 +49,14 @@ export default function Sidebars({
   datas,
   setType,
   handleShowDeleteUser,
-  setUserIdDelete
+  setUserIdDelete,
+  classTYPE,
+  setIdSubject,
+  idSubject,
+  setNameCategory,
+  nameCategory,
+  setAssignmentId,
+  assignmentId,
 }) {
   // menu
   const [open, setOpen] = useState(true);
@@ -35,36 +66,42 @@ export default function Sidebars({
       src: <HiUsers className="w-[30px] h-[30px]" />,
       gap: true,
       menu: <TableUsers />,
+      stage: "STAGE1",
     },
     {
       title: "Attendance",
       src: <HiOutlineClipboardCheck className="w-[30px] h-[30px]" />,
       gap: true,
       menu: <Attendence />,
+      stage: "STAGE1",
     },
     {
       title: "Productivity",
       src: <FaAngleDoubleUp className="w-[30px] h-[30px]" />,
       gap: true,
       menu: <Productivity />,
+      stage: "STAGE1",
     },
     {
       title: "Soft Skill",
       src: <FaChalkboardTeacher className="w-[30px] h-[30px]" />,
       gap: true,
       menu: <SoftSkill />,
+      stage: "STAGEONE",
     },
     {
       title: "Assignment",
       src: <TbReportAnalytics className="w-[30px] h-[30px]" />,
-      gap: true,
+      gap: "Create Assigment",
       menu: <Assigment />,
+      stage: "STAGE1",
     },
     {
       title: "Report",
       src: <TbReport className="w-[30px] h-[30px]" />,
       gap: true,
       menu: <Report />,
+      stage: "STAGE1",
     },
   ];
   const [menu, setMenu] = useState("");
@@ -117,33 +154,64 @@ export default function Sidebars({
                   </option>
                 ))}
               </select>
-
-              <ul className="pt-6">
-                {menus.map((item, index) => (
-                  <li
-                    key={index}
-                    className={`mt-6 text-lg flex flex-row item-center gap-x-4 hover:bg-gray-200 rounded-md cursor-pointer ${
-                      open ? "p-2 m-2" : "p-0 m-0"
-                    }`}
-                    onClick={() => setMenu(item.title)}
-                  >
-                    <span>{item.src}</span>
-                    <span
-                      className={`flex items-center origin-left duration-200 ${
-                        !open && "hidden"
-                      }`}
-                    >
-                      {item.title}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              {userId && (
+                <ul className="pt-6">
+                  {menus
+                    .filter((x) => x.stage !== datas?.classes[0]?.type)
+                    .map((item, index) => (
+                      <li>
+                        {" "}
+                        <li
+                          key={index}
+                          className={`mt-6 text-lg flex flex-row item-center gap-x-4 hover:bg-gray-200 rounded-md cursor-pointer ${
+                            open ? "p-2 m-2" : "p-0 m-0"
+                          }`}
+                          onClick={() => setMenu(item.title)}
+                        >
+                          {item.title === "Assignment" ? (
+                            <div className="flex flex-col">
+                              <div className="flex flex-row mb-3">
+                                <span>{item.src}</span>
+                                <span
+                                  className={`flex ml-4 items-center origin-left duration-200 ${
+                                    !open && "hidden"
+                                  }`}
+                                >
+                                  {item.title}
+                                </span>
+                              </div>
+                            </div>
+                          ) : (
+                            <>
+                              <span>{item.src}</span>
+                              <span
+                                className={`flex items-center origin-left duration-200 ${
+                                  !open && "hidden"
+                                }`}
+                              >
+                                {item.title}
+                              </span>
+                            </>
+                          )}
+                        </li>
+                        <li
+                          onClick={() => setMenu("Creaete Assignment")}
+                          className={`flex ml-4 items-center hover:bg-white ${
+                            menu === "Assignment" ? "" : "hidden"
+                          } origin-left duration-200 ${!open && "hidden"}`}
+                        >
+                          {item.gap}
+                        </li>
+                      </li>
+                    ))}
+                </ul>
+              )}
             </div>
           </div>
           {datas === undefined ? (
             <Select />
           ) : menu === "Report" ? (
-            <Report userId={userId} />
+            <Report userId={userId} classTYPE={classTYPE}/>
           ) : menu === "Attendance" ? (
             <Attendence userId={userId} />
           ) : menu === "Productivity" ? (
@@ -151,7 +219,23 @@ export default function Sidebars({
           ) : menu === "Soft Skill" ? (
             <SoftSkill userId={userId} />
           ) : menu === "Assignment" ? (
-            <Assigment userId={userId} />
+            <Assigment
+              userId={userId}
+              classTYPE={classTYPE}
+              assignments={assignments}
+              setIdSubject={setIdSubject}
+              idSubject={idSubject}
+              setNameCategory={setNameCategory}
+              nameCategory={nameCategory}
+              setAssignmentId={setAssignmentId}
+              assignmentId={assignmentId}
+            />
+          ) : menu === "Creaete Assignment" ? (
+            <CreateAssigment
+              userId={userId}
+              classTYPE={classTYPE}
+              assignments={assignments}
+            />
           ) : (
             <TableUsers
               userId={userId}

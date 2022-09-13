@@ -32,6 +32,9 @@ export default function Detail() {
   const handleShowStudent = () => setShowClass(true);
   const [userId, setUserId] = useState("");
   const [showDeleteUser, setShowDeleteUser] = useState(false);
+  const [idSubject, setIdSubject] = useState("");
+  const [nameCategory, setNameCategory] = useState("");
+  const [assignmentId,setAssignmentId] = useState("")
 
   const router = useRouter();
   const id = router.query.id;
@@ -47,11 +50,7 @@ export default function Detail() {
   });
 
   const [type, setType] = useState("");
-  const {
-    data: datas,
-    err,
-    load,
-  } = useQuery(classes, {
+  const { data: datas } = useQuery(classes, {
     variables: {
       where: {
         batch: {
@@ -62,6 +61,7 @@ export default function Detail() {
     },
   });
 
+  const classTYPE = datas?.classes[0]?.type;
   const ClassID = datas?.classes[0]?.id;
 
   return (
@@ -75,6 +75,13 @@ export default function Detail() {
         setType={setType}
         handleShowDeleteUser={setShowDeleteUser}
         setUserIdDelete={setUserId}
+        classTYPE={classTYPE}
+        setIdSubject={setIdSubject}
+        idSubject={idSubject}
+        setNameCategory={setNameCategory}
+        nameCategory={nameCategory}
+        setAssignmentId={setAssignmentId}
+        assignmentId={assignmentId}
       />
       <AddStudents
         showClass={showClass}
@@ -88,6 +95,7 @@ export default function Detail() {
         showDeleteUser={showDeleteUser}
         setShowDeleteUser={setShowDeleteUser}
         userId={userId}
+        idSubject={idSubject}
       />
     </>
   );

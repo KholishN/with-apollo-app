@@ -20,7 +20,7 @@ const softSkill = gql`
 `;
 
 export default function SoftSkill({ userId }) {
-  const { data, error, loading } = useQuery(softSkill, {
+  const { data } = useQuery(softSkill, {
     variables: {
       where: {
         studentId: userId,

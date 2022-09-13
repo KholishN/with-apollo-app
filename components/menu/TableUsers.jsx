@@ -16,7 +16,7 @@ export default function TableUsers({
           <button
             type="submit"
             onClick={setShowClass}
-            className="mb-5 p-2 px-5 rounded-lg text-white font-semibold text-base bg-[#fe4e30]"
+            className="mb-5 p-2 px-5 rounded-lg text-white font-semibold text-base bg-[#fe4e30] hover:bg-blue-200"
           >
             Add Student
           </button>

@@ -23,7 +23,7 @@ const attendence = gql`
 `;
 
 export default function Attendence({ userId }) {
-  const { data, error, loading } = useQuery(attendence, {
+  const { data} = useQuery(attendence, {
     variables: {
       where: {
         studentId: userId,

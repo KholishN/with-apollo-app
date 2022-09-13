@@ -20,7 +20,7 @@ const productivity = gql`
 `;
 
 export default function Productivity({ userId }) {
-  const { data, error, loading } = useQuery(productivity, {
+  const { data } = useQuery(productivity, {
     variables: {
       where: {
         studentId: userId,

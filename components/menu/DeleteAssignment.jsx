@@ -17,9 +17,13 @@ export default function DeleteAssignment({
   assignments,
   data,
   userId,
+  idSubject,
+  nameCategory,
 }) {
   if (!show) return null;
- 
+
+  console.log(nameCategory);
+
   const [deleteAssignment] = useMutation(Delete_Assignment);
 
   const [confirmDelete, setConfirmDelete] = useState(null);
@@ -28,20 +32,26 @@ export default function DeleteAssignment({
     setConfirmDelete(true);
   };
 
+  // console.log(idSubject);
   const handleSubmit = () => {
     deleteAssignment({
-      variables: { id: data?.assignments[0]?.id },
+      variables: { id: data?.assignments[0]?.id, subjectId: idSubject },
       refetchQueries: [
         {
           query: assignments,
           variables: {
             where: {
               studentId: userId,
+              subject: {
+                subCategory: {
+                  name: nameCategory,
+                },
+              },
             },
           },
         },
       ],
-    })
+    });
   };
 
   useEffect(() => {
